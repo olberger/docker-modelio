@@ -69,9 +69,9 @@ THIS SECTION WASN'T TESTED AND SHOULD BE CHECKED. PULL REQUESTS WELCOME
     ```sh
     cd docker-modelio
     ```
-6. build (optional)
+6. build (optional, to specify architecture for M1 (apple silicon) macOS.)
     ```sh
-    docker build --tag olberger:docker-modelio:5.1 .
+    docker build --platform linux/amd64 --tag olberger:docker-modelio:5.1 .
     ```
 7. enable the `run.sh` script to be run
     ```sh
