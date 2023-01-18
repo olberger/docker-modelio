@@ -58,7 +58,7 @@ grant_access_to_video_devices() {
 
 launch_bash() {
     cd /home/${MODELIO_USER}
-    echo 'PATH="${PATH}:/modelio/Modelio 4.1/"' > /home/${MODELIO_USER}/.bashrc
+#    echo 'PATH="${PATH}:/modelio/Modelio 4.1/"' > /home/${MODELIO_USER}/.bashrc
     
 #  exec sudo -HEu ${MODELIO_USER} PULSE_SERVER=/run/pulse/native QT_GRAPHICSSYSTEM="native" xcompmgr -c -l0 -t0 -r0 -o.00 &
 #  exec sudo -HEu ${MODELIO_USER} PULSE_SERVER=/run/pulse/native QT_GRAPHICSSYSTEM="native" $@
@@ -78,7 +78,7 @@ case "$1" in
     create_user
     #grant_access_to_video_devices
     #echo "$1"
-    echo "You can now launch Modelio by invoking 'modelio.sh' at the bash prompt, and quit with 'exit' at the end."
+    echo "You can now launch Modelio by invoking '/usr/bin/modelio-open-source5.1' at the bash prompt, and quit with 'exit' at the end."
     launch_bash $@
     ;;
   # *)
