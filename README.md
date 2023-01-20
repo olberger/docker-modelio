@@ -2,7 +2,7 @@
 
 # Introduction
 
-[Modelio](https://www.modelio.org) 4.1.0 in a docker container (for Linux, and maybe for macOS too)
+[Modelio](https://www.modelio.org) 5.1.0 in a docker container (for Linux, and maybe for macOS too)
 
 The image uses [X11](http://www.x.org) unix domain socket on the host to enable display of the Modelio desktop app. These components are available out of the box on pretty much any modern linux distribution.
 
@@ -34,6 +34,8 @@ docker pull olberger/docker-modelio:latest
 
 Alternatively you can build the image yourself, from the contents of
 the Github repo.
+
+<!-- docker build --pull -t olberger/docker-modelio . -->
 
 ```bash
 docker build -t olberger/docker-modelio github.com/olberger/docker-modelio
@@ -89,11 +91,12 @@ Mounting '/home/olivier/Documents/ModelioWorkspace' on the host into '/home/mode
 Limiting to 2.0 cpus for the container
 Starting bash inside the container...
 Inside the running container...
-You can now launch Modelio by invoking 'modelio.sh' at the bash prompt, and quit with 'exit' at the end.
+You can now launch Modelio by invoking '/usr/bin/modelio-open-source5.1' at the bash prompt, and quit with 'exit' at the end.
 modelio@9749358c4a9d:~$ 
 ```
 
-then type `modelio.sh` at the prompt inside the container.
+then type `/usr/bin/modelio-open-source5.1` at the prompt inside the
+container, as instructed.
 
 ## Runtime options
 
