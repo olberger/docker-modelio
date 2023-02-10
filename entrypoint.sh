@@ -6,21 +6,24 @@ set -e
 
 #set -x
 
+MODELIO_VERSION=5.1
+MODELIO_WRAPPER=modelio-wrapper-$MODELIO_VERSION
+
 USER_UID=${USER_UID:-1000}
 USER_GID=${USER_GID:-1000}
 
 MODELIO_USER=modelio
 
 install_modelio() {
-  echo "Installing modelio-wrapper..."
-  install -m 0755 /var/cache/modelio/modelio-wrapper /target/
+  echo "Installing $MODELIO_WRAPPER..."
+  install -m 0755 /var/cache/modelio/modelio-wrapper /target/$MODELIO_WRAPPER
   echo "Installing modelio..."
-  ln -sf modelio-wrapper /target/modelio
+  ln -sf $MODELIO_WRAPPER /target/modelio
 }
 
 uninstall_modelio() {
-  echo "Uninstalling modelio-wrapper..."
-  rm -rf /target/modelio-wrapper
+  echo "Uninstalling $MODELIO_WRAPPER..."
+  rm -rf /target/$MODELIO_WRAPPER
   echo "Uninstalling modelio..."
   rm -rf /target/modelio
 }
@@ -58,7 +61,7 @@ grant_access_to_video_devices() {
 
 launch_bash() {
     cd /home/${MODELIO_USER}
-#    echo 'PATH="${PATH}:/modelio/Modelio 4.1/"' > /home/${MODELIO_USER}/.bashrc
+#    echo 'PATH="${PATH}:/modelio/Modelio '$MODELIO_VERSION'/"' > /home/${MODELIO_USER}/.bashrc
     
 #  exec sudo -HEu ${MODELIO_USER} PULSE_SERVER=/run/pulse/native QT_GRAPHICSSYSTEM="native" xcompmgr -c -l0 -t0 -r0 -o.00 &
 #  exec sudo -HEu ${MODELIO_USER} PULSE_SERVER=/run/pulse/native QT_GRAPHICSSYSTEM="native" $@
@@ -78,7 +81,7 @@ case "$1" in
     create_user
     #grant_access_to_video_devices
     #echo "$1"
-    echo "You can now launch Modelio by invoking '/usr/bin/modelio-open-source5.1' at the bash prompt, and quit with 'exit' at the end."
+    echo "You can now launch Modelio $MODELIO_VERSION by invoking '/usr/bin/modelio-open-source5.1' at the bash prompt, and quit with 'exit' at the end."
     launch_bash $@
     ;;
   # *)

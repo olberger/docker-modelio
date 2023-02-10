@@ -4,13 +4,17 @@
 
 #set -x
 
-DOCKERIMAGE=olberger/docker-modelio:latest
+MODELIO_VERSION=5.1
+
+DOCKERIMAGE=olberger/docker-modelio:$MODELIO_VERSION
+
+CONTAINER_NAME=modelio-$MODELIO_VERSION
 
 # * 1.5 (core) : too slow, unusable
 # * 2.0 : slow
 # * 3.0 : convenient
 # * 4.0 : comfortable
-CPUS=2.0
+CPUS=3.0
 
 PATH=/usr/sbin:/usr/bin:/sbin:/bin
 MODELIO_USER=modelio
@@ -22,20 +26,21 @@ USER_UID=$(id -u)
 USER_GID=$(id -g)
 
 XSOCK=/tmp/.X11-unix
-XAUTH=/tmp/.docker.xauth
+XAUTH=/tmp/.docker.xauth.$USER.$$
 
 # DOWNLOAD_DIR=$(xdg-user-dir DOWNLOAD)
 # if [ -z "${DOWNLOAD_DIR}" ]; then
 #     DOWNLOAD_DIR="${HOME}/Downloads"
 # fi;
-DOCUMENTS_DIR=$(xdg-user-dir DOCUMENTS)
+# xdg-user-dir may not be available on Mac OS... until better solution, use a fixed dir
+DOCUMENTS_DIR=$(xdg-user-dir DOCUMENTS || true)
 if [ -z "${DOCUMENTS_DIR}" ]; then
     DOCUMENTS_DIR="${HOME}/Documents"
 fi;
 
 list_commands() {
 cat << EOF
-Launch modelio using:
+Launch modelio $MODELIO_VERSION using:
  modelio-wrapper [options] bash
 
 OPTIONS:
@@ -69,7 +74,7 @@ prepare_docker_env_parameters() {
 
 prepare_docker_volume_parameters() {
   touch ${XAUTH}
-  xauth nlist :0 | sed -e 's/^..../ffff/' | xauth -f ${XAUTH} nmerge -
+  xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f ${XAUTH} nmerge -
 
   if [[ -z "${MODELIO_HOME}" ]]; then
       MODELIO_HOME=${HOME} # Default directory
@@ -79,10 +84,10 @@ prepare_docker_volume_parameters() {
       #DOWNLOAD_DIR=${DOWNLOAD_DIR/$HOME/$MODELIO_HOME}
     DOCUMENTS_DIR=${DOCUMENTS_DIR/$HOME/$MODELIO_HOME}
     #mkdir -p ${DOWNLOAD_DIR}
-    mkdir -p ${SOCUMENTS_DIR}
+    mkdir -p ${DOCUMENTS_DIR}
 
 #    mkdir -p ${MODELIO_HOME}/{.config,.cache}
-    mkdir -p ${MODELIO_HOME}/.modelio
+    mkdir -p ${MODELIO_HOME}/.modelio-$MODELIO_VERSION
   fi
 
   mkdir -p ${DOCUMENTS_DIR}/ModelioWorkspace
@@ -92,14 +97,14 @@ prepare_docker_volume_parameters() {
   echo "Using MODELIO_HOME: ${MODELIO_HOME}"
 
 #  VOLUMES+=" --volume=${CURDIR}/diagrams-from-host:/home/${MODELIO_USER}/diagrams-from-host"
-  VOLUMES+=" --volume=${MODELIO_HOME}/.modelio:/home/${MODELIO_USER}/.modelio"
+  VOLUMES+=" --volume=${MODELIO_HOME}/.modelio-$MODELIO_VERSION:/home/${MODELIO_USER}/.modelio-$MODELIO_VERSION"
   # VOLUMES+=" --volume=${DOWNLOAD_DIR}:/home/${MODELIO_USER}/Downloads"
   # VOLUMES+=" --volume=${DOCUMENTS_DIR}:/home/${MODELIO_USER}/Documents"
   VOLUMES+=" --volume=${DOCUMENTS_DIR}/ModelioWorkspace:/home/${MODELIO_USER}/modelio/workspace"
   echo "Mounting '${DOCUMENTS_DIR}/ModelioWorkspace' on the host into '/home/${MODELIO_USER}/modelio/workspace' on the guest"
 
-  VOLUMES+=" --volume=${XSOCK}:${XSOCK}"
-  VOLUMES+=" --volume=${XAUTH}:${XAUTH}"
+  VOLUMES+=" --volume=${XSOCK}:${XSOCK}:rw"
+  VOLUMES+=" --volume=${XAUTH}:${XAUTH}:rw"
 #  VOLUMES+=" --volume=/run/user/${USER_UID}/pulse:/run/pulse"
 }
 
@@ -198,10 +203,12 @@ ${SUDO} docker run -it \
   ${ENV_VARS} \
   ${VOLUMES} \
   ${MODELIO_EXTRA_DOCKER_ARGUMENTS} \
-  --name modelio \
+  --name $CONTAINER_NAME \
   ${DOCKERIMAGE} ${prog} $@
 
 #>/dev/null
 
+rm -f $XAUTH
+
 # Never displayed cause of exec
-echo "Container execution terminaied."
+echo "Container execution terminated."
