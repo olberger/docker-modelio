@@ -26,7 +26,7 @@ USER_UID=$(id -u)
 USER_GID=$(id -g)
 
 XSOCK=/tmp/.X11-unix
-XAUTH=/tmp/.docker.xauth
+XAUTH=/tmp/.docker.xauth.$USER.$$
 
 # DOWNLOAD_DIR=$(xdg-user-dir DOWNLOAD)
 # if [ -z "${DOWNLOAD_DIR}" ]; then
@@ -73,7 +73,7 @@ prepare_docker_env_parameters() {
 
 prepare_docker_volume_parameters() {
   touch ${XAUTH}
-  xauth nlist :0 | sed -e 's/^..../ffff/' | xauth -f ${XAUTH} nmerge -
+  xauth nlist $DISPLAY | sed -e 's/^..../ffff/' | xauth -f ${XAUTH} nmerge -
 
   if [[ -z "${MODELIO_HOME}" ]]; then
       MODELIO_HOME=${HOME} # Default directory
@@ -102,8 +102,8 @@ prepare_docker_volume_parameters() {
   VOLUMES+=" --volume=${DOCUMENTS_DIR}/ModelioWorkspace:/home/${MODELIO_USER}/modelio/workspace"
   echo "Mounting '${DOCUMENTS_DIR}/ModelioWorkspace' on the host into '/home/${MODELIO_USER}/modelio/workspace' on the guest"
 
-  VOLUMES+=" --volume=${XSOCK}:${XSOCK}"
-  VOLUMES+=" --volume=${XAUTH}:${XAUTH}"
+  VOLUMES+=" --volume=${XSOCK}:${XSOCK}:rw"
+  VOLUMES+=" --volume=${XAUTH}:${XAUTH}:rw"
 #  VOLUMES+=" --volume=/run/user/${USER_UID}/pulse:/run/pulse"
 }
 
@@ -206,6 +206,8 @@ ${SUDO} docker run -it \
   ${DOCKERIMAGE} ${prog} $@
 
 #>/dev/null
+
+rm -f $XAUTH
 
 # Never displayed cause of exec
 echo "Container execution terminated."
