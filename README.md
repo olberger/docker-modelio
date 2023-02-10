@@ -29,7 +29,7 @@ OpenJDK 11 is installed, inside the container in `/usr/local/openjdk-11` (for us
 Automated builds of the image are available on [Dockerhub](https://hub.docker.com/r/olberger/docker-modelio) and is the recommended method of installation.
 
 ```bash
-docker pull olberger/docker-modelio:latest
+docker pull olberger/docker-modelio:4.1
 ```
 
 Alternatively you can build the image yourself, from the contents of
@@ -57,7 +57,8 @@ THIS SECTION WASN'T TESTED AND SHOULD BE CHECKED. PULL REQUESTS WELCOME
 1. launch XQuartz
 2. in Preferences -> Security check "Authenticate connections" and "Allow connections from network clients"
 3. exit and re-launch XQuartz
-4. clone this repository
+4. clone this repository (NOT YET UPDATED SINCE I HAVE NO MAC TO TEST
+    MY REPO'S)
     ```sh
     git clone https://github.com/pascalpoizat/docker-modelio
     ```
@@ -136,14 +137,14 @@ Then launch modelio (twice if it triggers an error at first launch)
 
 # Maintenance
 
-## Upgrading
+## Updating
 
-To upgrade to newer releases:
+To update to a newer release of the container image, for Modelio 4.1:
 
   1. Download the updated Docker image:
 
   ```bash
-  docker pull olberger/docker-modelio:latest
+  docker pull olberger/docker-modelio:4.1
   ```
 
   2. Run `install` to make sure the host scripts are updated.
@@ -151,21 +152,26 @@ To upgrade to newer releases:
   ```bash
   docker run -it --rm \
     --volume /usr/local/bin:/target \
-    olberger/modelio:latest install
+    olberger/docker-modelio:4.1 install
   ```
+
+## Upgrading
+
+To update to a release of the container image for a later version of
+Modelio, check the repository's master branch instructions.
 
 ## Uninstallation
 
 ```bash
 docker run -it --rm \
   --volume /usr/local/bin:/target \
-  olberger/docker-modelio:latest uninstall
+  olberger/docker-modelio:4.1 uninstall
 ```
 
 ## Local image rebuild
 
 ```bash
-docker build --tag  olberger/docker-modelio:latest .
+docker build --tag  olberger/docker-modelio:4.1 .
 ```
 
 ## Run without installation
@@ -188,7 +194,7 @@ some values of CPU usage:
 * 3.0 : convenient
 * 4.0 : comfortable
 
-Adjust the `-c` option passed to the `modelio-wraper`, depending on your needs.
+Adjust the `-c` option passed to the `modelio-wraper-4.1`, depending on your needs.
 
 ## Contributing
 
@@ -204,7 +210,7 @@ The wrapper scripts mounts the X11 socket in the launcher container (a Docker vo
 
 When the image is launched the following directories are mounted as volumes:
 
-- `~/.modelio/`, or `${MODELIO_HOME}/.modelio/` if option `-p` is
+- `~/.modelio-4.1/`, or `${MODELIO_HOME}/.modelio-4.1/` if option `-p` is
   provided, or a value of `MODELIO_HOME` is defined
 - `~/Documents/ModelioWorkspace/` (where `Documents` is determined
   through `XDG_DOCUMENTS_DIR`), or similarly `${MODELIO_HOME}/Documents/ModelioWorkspace/`
@@ -225,19 +231,8 @@ export MODELIO_HOME=${HOME}/modelio-guest
 
 # Sources / inspiration
 
+- forked from https://github.com/pascalpoizat/docker-modelio ,
+  hopefully retaining the possibility to merge back
 - this is a simple update from [https://github.com/GehDoc/docker-modelio](https://github.com/GehDoc/docker-modelio) with no use of the user's UID/GID
 - solution to access the X11 display from [https://medium.com/@mreichelt/how-to-show-x11-windows-within-docker-on-mac-50759f4b65cb](https://medium.com/@mreichelt/how-to-show-x11-windows-within-docker-on-mac-50759f4b65cb)
 - improved by Olivier Berger to create user at runtime and avoid rebuilding to tackle uid/gid into account, inspired by https://github.com/mdouchement/docker-zoom-us
-
-
-
-
-
-
-
-
-
-
-
-
-
