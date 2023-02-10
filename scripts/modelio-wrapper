@@ -83,7 +83,7 @@ prepare_docker_volume_parameters() {
       #DOWNLOAD_DIR=${DOWNLOAD_DIR/$HOME/$MODELIO_HOME}
     DOCUMENTS_DIR=${DOCUMENTS_DIR/$HOME/$MODELIO_HOME}
     #mkdir -p ${DOWNLOAD_DIR}
-    mkdir -p ${SOCUMENTS_DIR}
+    mkdir -p ${DOCUMENTS_DIR}
 
 #    mkdir -p ${MODELIO_HOME}/{.config,.cache}
     mkdir -p ${MODELIO_HOME}/.modelio-$MODELIO_VERSION
