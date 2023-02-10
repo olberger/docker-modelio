@@ -71,7 +71,7 @@ THIS SECTION WASN'T TESTED AND SHOULD BE CHECKED. PULL REQUESTS WELCOME
     ```
 6. build (optional)
     ```sh
-    docker build --tag docker-modelio:latest .
+    docker build --tag olberger:docker-modelio:5.1 .
     ```
 7. enable the `run.sh` script to be run
     ```sh
