@@ -14,7 +14,7 @@ CONTAINER_NAME=modelio-$MODELIO_VERSION
 # * 2.0 : slow
 # * 3.0 : convenient
 # * 4.0 : comfortable
-CPUS=2.0
+CPUS=3.0
 
 PATH=/usr/sbin:/usr/bin:/sbin:/bin
 MODELIO_USER=modelio
