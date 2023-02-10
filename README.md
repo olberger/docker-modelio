@@ -37,7 +37,7 @@ the Github repo.
 
 ```bash
 docker rmi olberger/docker-modelio:4.1
-docker build -t olberger/docker-modelio:4.1 git://github.com/olberger/docker-modelio#4.1
+docker build -t olberger/docker-modelio:4.1 github.com/olberger/docker-modelio#4.1
 ```
 
 With the image locally available, install the wrapper script by running the following as root:
