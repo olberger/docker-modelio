@@ -32,7 +32,8 @@ XAUTH=/tmp/.docker.xauth.$USER.$$
 # if [ -z "${DOWNLOAD_DIR}" ]; then
 #     DOWNLOAD_DIR="${HOME}/Downloads"
 # fi;
-DOCUMENTS_DIR=$(xdg-user-dir DOCUMENTS)
+# xdg-user-dir may not be available on Mac OS... until better solution, use a fixed dir
+DOCUMENTS_DIR=$(xdg-user-dir DOCUMENTS || true)
 if [ -z "${DOCUMENTS_DIR}" ]; then
     DOCUMENTS_DIR="${HOME}/Documents"
 fi;
