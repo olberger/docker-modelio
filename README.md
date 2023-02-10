@@ -63,7 +63,7 @@ THIS SECTION WASN'T TESTED AND SHOULD BE CHECKED. PULL REQUESTS WELCOME
 4. clone this repository (NOT YET UPDATED SINCE I HAVE NO MAC TO TEST
     MY REPO'S)
     ```sh
-    git clone https://github.com/pascalpoizat/docker-modelio
+    git clone https://github.com/olberger/docker-modelio
     ```
 5. enter the repository
     ```sh
@@ -79,6 +79,8 @@ THIS SECTION WASN'T TESTED AND SHOULD BE CHECKED. PULL REQUESTS WELCOME
     ```
 
 ## Starting Modelio
+
+### On Linux
 
 Launch the `modelio-wrapper-5.1` script to enter a shell inside the
 Docker container (or directly `modelio` if you don't have multiple
@@ -102,6 +104,16 @@ modelio@9749358c4a9d:~$
 
 then type `/usr/bin/modelio-open-source5.1` at the prompt inside the
 container, as instructed.
+
+### On MacOS
+
+```bash
+./run.sh
+```
+Which displays:
+```
+TBD
+```
 
 ## Runtime options
 
