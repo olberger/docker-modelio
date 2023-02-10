@@ -48,7 +48,8 @@ docker run -it --rm \
   olberger/docker-modelio:4.1 install
 ```
 
-This will install a wrapper script named  `modelio-wrapper` to launch modelio.
+This will install a wrapper script named  `modelio-wrapper-4.1` to
+launch Modelio inside a container (details and options below).
 
 ## Setup on Mac (perform once)
 
