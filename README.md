@@ -140,17 +140,6 @@ OPTIONS:
   `$HOME/Documents/ModelioWorkspace/` and `$HOME/.modelio/` with the
   guest. As an alternative, one may set the `MODELIO_HOME` env var.
 
-# Running on Mac
-
-THIS SECTION WASN'T TESTED AND SHOULD BE CHECKED. PULL REQUESTS WELCOME
-
-Launch the `run.sh` script
-
-```sh
-./scripts/modelio-wrapper bash
-```
-Then launch modelio (twice if it triggers an error at first launch)
-
 # Maintenance
 
 ## Updating
