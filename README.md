@@ -36,7 +36,8 @@ Alternatively you can build the image yourself, from the contents of
 the Github repo.
 
 ```bash
-docker build -t olberger/docker-modelio github.com/olberger/docker-modelio
+docker rmi olberger/docker-modelio:4.1
+docker build -t olberger/docker-modelio:4.1 github.com/olberger/docker-modelio
 ```
 
 With the image locally available, install the wrapper script by running the following as root:
@@ -44,7 +45,7 @@ With the image locally available, install the wrapper script by running the foll
 ```bash
 docker run -it --rm \
   --volume /usr/local/bin:/target \
-  olberger/docker-modelio:latest install
+  olberger/docker-modelio:4.1 install
 ```
 
 This will install a wrapper script named  `modelio-wrapper` to launch modelio.
@@ -75,10 +76,12 @@ THIS SECTION WASN'T TESTED AND SHOULD BE CHECKED. PULL REQUESTS WELCOME
 
 ## Starting Modelio
 
-Launch the `modelio-wrapper` script to enter a shell inside the Docker container
+Launch the `modelio-wrapper-4.1` script to enter a shell inside the
+Docker container (or directly `modelio` if you don't have multiple
+versions installed):
 
 ```bash
-modelio-wrapper bash
+modelio-wrapper-4.1 bash
 ```
 
 Then the prompt should be displayed like:
@@ -89,7 +92,7 @@ Mounting '/home/olivier/Documents/ModelioWorkspace' on the host into '/home/mode
 Limiting to 2.0 cpus for the container
 Starting bash inside the container...
 Inside the running container...
-You can now launch Modelio by invoking 'modelio.sh' at the bash prompt, and quit with 'exit' at the end.
+You can now launch Modelio 4.1 by invoking 'modelio.sh' at the bash prompt, and quit with 'exit' at the end.
 modelio@9749358c4a9d:~$ 
 ```
 

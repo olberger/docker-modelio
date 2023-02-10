@@ -4,7 +4,11 @@
 
 #set -x
 
-DOCKERIMAGE=olberger/docker-modelio:latest
+MODELIO_VERSION=4.1
+
+DOCKERIMAGE=olberger/docker-modelio:$MODELIO_VERSION
+
+CONTAINER_NAME=modelio-$MODELIO_VERSION
 
 # * 1.5 (core) : too slow, unusable
 # * 2.0 : slow
@@ -35,7 +39,7 @@ fi;
 
 list_commands() {
 cat << EOF
-Launch modelio using:
+Launch modelio $MODELIO_VERSION using:
  modelio-wrapper [options] bash
 
 OPTIONS:
@@ -82,7 +86,7 @@ prepare_docker_volume_parameters() {
     mkdir -p ${SOCUMENTS_DIR}
 
 #    mkdir -p ${MODELIO_HOME}/{.config,.cache}
-    mkdir -p ${MODELIO_HOME}/.modelio
+    mkdir -p ${MODELIO_HOME}/.modelio-$MODELIO_VERSION
   fi
 
   mkdir -p ${DOCUMENTS_DIR}/ModelioWorkspace
@@ -92,7 +96,7 @@ prepare_docker_volume_parameters() {
   echo "Using MODELIO_HOME: ${MODELIO_HOME}"
 
 #  VOLUMES+=" --volume=${CURDIR}/diagrams-from-host:/home/${MODELIO_USER}/diagrams-from-host"
-  VOLUMES+=" --volume=${MODELIO_HOME}/.modelio:/home/${MODELIO_USER}/.modelio"
+  VOLUMES+=" --volume=${MODELIO_HOME}/.modelio-$MODELIO_VERSION:/home/${MODELIO_USER}/.modelio-$MODELIO_VERSION"
   # VOLUMES+=" --volume=${DOWNLOAD_DIR}:/home/${MODELIO_USER}/Downloads"
   # VOLUMES+=" --volume=${DOCUMENTS_DIR}:/home/${MODELIO_USER}/Documents"
   VOLUMES+=" --volume=${DOCUMENTS_DIR}/ModelioWorkspace:/home/${MODELIO_USER}/modelio/workspace"
@@ -198,10 +202,10 @@ ${SUDO} docker run -it \
   ${ENV_VARS} \
   ${VOLUMES} \
   ${MODELIO_EXTRA_DOCKER_ARGUMENTS} \
-  --name modelio \
+  --name $CONTAINER_NAME \
   ${DOCKERIMAGE} ${prog} $@
 
 #>/dev/null
 
 # Never displayed cause of exec
-echo "Container execution terminaied."
+echo "Container execution terminated."
