@@ -164,6 +164,14 @@ To update to a newer release of the container image, for Modelio 5.1:
 To update to a release of the container image for a later version of
 Modelio, check the repository's master branch instructions.
 
+## Running previous versions
+
+See https://github.com/olberger/docker-modelio/tree/4.1 for
+instructions on running a container for Modelio 4.1.
+
+Running multiple versions alongside in separate containers should be
+possible, but test this at your own risks.
+
 ## Uninstallation
 
 ```bash
