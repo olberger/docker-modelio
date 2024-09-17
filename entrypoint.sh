@@ -6,7 +6,7 @@ set -e
 
 #set -x
 
-MODELIO_VERSION=5.1
+MODELIO_VERSION=5.4.1
 MODELIO_WRAPPER=modelio-wrapper-$MODELIO_VERSION
 
 USER_UID=${USER_UID:-1000}
@@ -81,7 +81,7 @@ case "$1" in
     create_user
     #grant_access_to_video_devices
     #echo "$1"
-    echo "You can now launch Modelio $MODELIO_VERSION by invoking '/usr/bin/modelio-open-source5.1' at the bash prompt, and quit with 'exit' at the end."
+    echo "You can now launch Modelio $MODELIO_VERSION by invoking '/usr/bin/modelio-open-source5.4' at the bash prompt, and quit with 'exit' at the end."
     launch_bash $@
     ;;
   # *)

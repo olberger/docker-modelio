@@ -2,7 +2,7 @@
 
 # Introduction
 
-[Modelio](https://www.modelio.org) 5.1.0 in a docker container (for Linux, and maybe for macOS too)
+[Modelio](https://www.modelio.org) 5.4.1 in a docker container (for Linux, and maybe for macOS too)
 
 The image uses [X11](http://www.x.org) unix domain socket on the host to enable display of the Modelio desktop app. These components are available out of the box on pretty much any modern linux distribution.
 
@@ -29,7 +29,7 @@ OpenJDK 11 is installed, inside the container in `/usr/local/openjdk-11` (for us
 Automated builds of the image are available on [Dockerhub](https://hub.docker.com/r/olberger/docker-modelio) and is the recommended method of installation.
 
 ```bash
-docker pull olberger/docker-modelio:5.1
+docker pull olberger/docker-modelio:5.4.1
 ```
 
 Alternatively you can build the image yourself, from the contents of
@@ -38,8 +38,8 @@ the Github repo.
 <!-- docker build --pull -t olberger/docker-modelio . -->
 
 ```bash
-docker rmi olberger/docker-modelio:5.1
-docker build -t olberger/docker-modelio:5.1 github.com/olberger/docker-modelio#5.1
+docker rmi olberger/docker-modelio:5.4.1
+docker build -t olberger/docker-modelio:5.4.1 github.com/olberger/docker-modelio#5.4.1
 ```
 
 With the image locally available, install the wrapper script by running the following as root:
@@ -47,10 +47,10 @@ With the image locally available, install the wrapper script by running the foll
 ```bash
 docker run -it --rm \
   --volume /usr/local/bin:/target \
-  olberger/docker-modelio:5.1 install
+  olberger/docker-modelio:5.4.1 install
 ```
 
-This will install a wrapper script named  `modelio-wrapper-5.1` to
+This will install a wrapper script named  `modelio-wrapper-5.4.1` to
 launch Modelio inside a container (details and options below).
 
 ## Setup on Mac (perform once)
@@ -71,7 +71,7 @@ THIS SECTION WASN'T TESTED AND SHOULD BE CHECKED. PULL REQUESTS WELCOME
     ```
 6. build (optional, to specify architecture for M1 (apple silicon) macOS.)
     ```sh
-    docker build --platform linux/amd64 --tag olberger/docker-modelio:5.1 .
+    docker build --platform linux/amd64 --tag olberger/docker-modelio:5.4.1 .
     ```
 7. enable the `run.sh` script to be run
     ```sh
@@ -82,12 +82,12 @@ THIS SECTION WASN'T TESTED AND SHOULD BE CHECKED. PULL REQUESTS WELCOME
 
 ### On Linux
 
-Launch the `modelio-wrapper-5.1` script to enter a shell inside the
+Launch the `modelio-wrapper-5.4.1` script to enter a shell inside the
 Docker container (or directly `modelio` if you don't have multiple
 versions installed):
 
 ```bash
-modelio-wrapper-5.1 bash
+modelio-wrapper-5.4.1 bash
 ```
 
 Then the prompt should be displayed like:
@@ -98,11 +98,11 @@ Mounting '/home/olivier/Documents/ModelioWorkspace' on the host into '/home/mode
 Limiting to 2.0 cpus for the container
 Starting bash inside the container...
 Inside the running container...
-You can now launch Modelio 5.1 by invoking '/usr/bin/modelio-open-source5.1' at the bash prompt, and quit with 'exit' at the end.
+You can now launch Modelio 5.4.1 by invoking '/usr/bin/modelio-open-source5.4.1' at the bash prompt, and quit with 'exit' at the end.
 modelio@9749358c4a9d:~$ 
 ```
 
-then type `/usr/bin/modelio-open-source5.1` at the prompt inside the
+then type `/usr/bin/modelio-open-source5.4.1` at the prompt inside the
 container, as instructed.
 
 ### On MacOS
@@ -144,12 +144,12 @@ OPTIONS:
 
 ## Updating
 
-To update to a newer release of the container image, for Modelio 5.1:
+To update to a newer release of the container image, for Modelio 5.4.1:
 
   1. Download the updated Docker image:
 
   ```bash
-  docker pull olberger/docker-modelio:5.1
+  docker pull olberger/docker-modelio:5.4.1
   ```
 
   2. Run `install` to make sure the host scripts are updated.
@@ -157,7 +157,7 @@ To update to a newer release of the container image, for Modelio 5.1:
   ```bash
   docker run -it --rm \
     --volume /usr/local/bin:/target \
-    olberger/docker-modelio:5.1 install
+    olberger/docker-modelio:5.4.1 install
   ```
 
 ## Upgrading
@@ -178,13 +178,13 @@ possible, but test this at your own risks.
 ```bash
 docker run -it --rm \
   --volume /usr/local/bin:/target \
-  olberger/docker-modelio:5.1 uninstall
+  olberger/docker-modelio:5.4.1 uninstall
 ```
 
 ## Local image rebuild
 
 ```bash
-docker build --tag  olberger/docker-modelio:5.1 .
+docker build --tag  olberger/docker-modelio:5.4.1 .
 ```
 
 ## Run without installation
@@ -207,7 +207,7 @@ some values of CPU usage:
 * 3.0 : convenient
 * 4.0 : comfortable
 
-Adjust the `-c` option passed to the `modelio-wraper-5.1`, depending on your needs.
+Adjust the `-c` option passed to the `modelio-wraper-5.4.1`, depending on your needs.
 
 ## Contributing
 
@@ -223,7 +223,7 @@ The wrapper scripts mounts the X11 socket in the launcher container (a Docker vo
 
 When the image is launched the following directories are mounted as volumes:
 
-- `~/.modelio-5.1/`, or `${MODELIO_HOME}/.modelio-5.1/` if option `-p` is
+- `~/.modelio-5.4.1/`, or `${MODELIO_HOME}/.modelio-5.4.1/` if option `-p` is
   provided, or a value of `MODELIO_HOME` is defined
 - `~/Documents/ModelioWorkspace/` (where `Documents` is determined
   through `XDG_DOCUMENTS_DIR`), or similarly `${MODELIO_HOME}/Documents/ModelioWorkspace/`
