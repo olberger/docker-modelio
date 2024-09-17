@@ -13,7 +13,7 @@ FROM debian:bullseye-slim
 #LABEL maintainer="gerald.hameau@gmail.com"
 LABEL maintainer="olivier.berger@telecom-sudparis.eu"
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000
