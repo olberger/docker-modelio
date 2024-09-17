@@ -1,4 +1,4 @@
-# modelio-5.1.0 on Debian-based image
+# modelio-5.4.1 on Debian-based image
 #
 # WARNING : PLEASE READ README.md
 #
@@ -13,7 +13,7 @@ FROM debian:bullseye-slim
 #LABEL maintainer="gerald.hameau@gmail.com"
 LABEL maintainer="olivier.berger@telecom-sudparis.eu"
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 ARG USER_ID=1000
 ARG GROUP_ID=1000
@@ -34,8 +34,8 @@ RUN apt install -qy ca-certificates
 #     wget -nv --show-progress --progress=bar:force:noscroll -O modelio.tar.gz https://github.com/ModelioOpenSource/Modelio/releases/download/v4.1.0/Modelio.4.1.0.-.Linux.tar.gz && \
 #     tar xfz modelio.tar.gz && \
 #     rm -rf modelio.tar.gz
-RUN wget -nv --show-progress --progress=bar:force:noscroll -O Debian.modelio-open-source5.1_5.1.0_amd64.deb https://github.com/ModelioOpenSource/Modelio/releases/download/v5.1.0/Debian.modelio-open-source5.1_5.1.0_amd64.deb && \
-    dpkg -i Debian.modelio-open-source5.1_5.1.0_amd64.deb
+RUN wget -nv --show-progress --progress=bar:force:noscroll -O modelio-open-source-5.4.1_amd64.deb https://github.com/ModelioOpenSource/Modelio/releases/download/v5.4.1/modelio-open-source-5.4.1_amd64.deb && \
+    dpkg -i modelio-open-source-5.4.1_amd64.deb
 #    || \
 #    apt-get --fix-broken install -qy
 
